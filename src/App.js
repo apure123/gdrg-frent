@@ -1,25 +1,15 @@
 import logo from './logo.svg';
-import './App.css';
+import './style/App.css';
 import { Button,message } from 'antd';
+import { Router, Route, Link }from "react-router"
+import {routes} from "./configs/routers";
+import AppDirect from "./components/AppDirect";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button onClick={()=>{message.success("123123")}}>1231231</Button>
-      </header>
+      <AppDirect></AppDirect>
+
     </div>
   );
 }
