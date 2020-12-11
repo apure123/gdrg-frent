@@ -1,5 +1,6 @@
 import LoginPage from "../components/LoginPage";
 import ContentPageFrameWoek from "../components/ContentPageFrameWoek";
+import UsersAdmin from "../components/superAdmin/UsersAdmin";
 
 export const routes=[
 
@@ -14,5 +15,15 @@ export const routes=[
 
     }
 
+]
+
+export const superAdminRoutes=[
+
+
+    {
+        path:"/dashboard/superAdmin/user",
+        component:UsersAdmin,
+
+    }
 
 ]
