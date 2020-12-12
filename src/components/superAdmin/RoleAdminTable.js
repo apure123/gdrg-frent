@@ -5,11 +5,8 @@ const { Option } = Select;
 for (let i = 0; i < 5; i++) {
     originData.push({
         key: i.toString(),
-        name: `Edrward ${i}`,
-        age: 32,
-        account: `London Park no. ${i}`,
-        roles:["管理员","123"],
-        status:"active"
+        roleName: `角色${i}`,
+        privilege:["add","delete"]
     });
 }
 
@@ -33,11 +30,11 @@ const EditableCell = ({
                       }) => {
     let inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
 
-    if (dataIndex==="roles"){
+    if (dataIndex==="privilege"){
         inputNode=<Select
             mode="multiple"
             style={{ width: '100%' }}
-            placeholder="选择用户类型"
+            placeholder="选择权限"
             /*defaultValue={['china']}*/
             onChange={handleChange}
             optionLabelProp="label"
@@ -100,9 +97,8 @@ const UsersAdminTable = () => {
     //用记record改form
     const edit = (record) => {
         form.setFieldsValue({
-            name: '',
-            age: '',
-            account: '',
+            roleName: '',
+            privilege:[],
             ...record,
         });
         setEditingKey(record.key);
@@ -137,34 +133,18 @@ const UsersAdminTable = () => {
 
     const columns = [
         {
-            title: '用户名',
-            dataIndex: 'name',
+            title: '角色名',
+            dataIndex: 'roleName',
             width: '25%',
             editable: true,
         },
         {
-            title: '账号状态',
-            dataIndex: 'status',
-            width: '15%',
+            title: "权限",
+            dataIndex: "privilege",
+            width: '55%',
             editable: true,
             render:(item)=>{
-                return  item==="active"? <Tag color="success">正常</Tag>:<Tag color="error">冻结</Tag>
-            }
-        },
-        {
-            title: '账号',
-            dataIndex: 'account',
-            width: '20%',
-            editable: true,
-        },
-        {
-            title: "角色",
-            dataIndex: "roles",
-            width: '20%',
-            editable: true,
-            render:(item)=>{
-
-                return item? <div>
+                return (item)? <div>
                     {item.map((itemi)=>{
                         return(<Tag>{itemi}</Tag>)
                     })}
@@ -234,11 +214,8 @@ const UsersAdminTable = () => {
         let newdata=[...data];
         newdata.push({
             key: data.length.toString(),
-            name: "",
-            age: 32,
-            account: "",
-            roles:["管理员","123"],
-            status:"active"
+            roleName: "",
+            privilege:[]
         })
         setData(newdata);
         setEditingKey(data.length.toString());
@@ -247,7 +224,7 @@ const UsersAdminTable = () => {
     return (
         <div>
             <Button onClick={AddaRow} type="primary" style={{ marginBottom: 16,marginRight:16 }}>
-                新增用户
+                新增角色
             </Button>
             <Button  type="primary" style={{ marginBottom: 16 }}>
                 刷新数据

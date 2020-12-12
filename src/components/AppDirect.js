@@ -12,6 +12,7 @@ class AppDirect extends Component{
 
     render() {return(<div>
         <Router>
+
             {routes.map((routeitem,key)=>{
                 if (routeitem.exact)
                 {
