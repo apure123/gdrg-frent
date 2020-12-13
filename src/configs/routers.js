@@ -3,6 +3,7 @@ import ContentPageFrameWoek from "../components/ContentPageFrameWoek";
 
 import UsersAdminTable from "../components/superAdmin/UsersAdmin";
 import RoleAdminTable from"../components/superAdmin/RoleAdminTable"
+import ListAllProperty from "../components/propertyAdmin/ListAllProperty";
 
 export const routes=[
 
@@ -31,6 +32,9 @@ export const superAdminRoutes=[
         path:"/dashboard/superAdmin/role",
         component:RoleAdminTable,
         exact:true
+    },{
+        path: "/dashboard/propertyAdmin/all",
+        component:ListAllProperty
     }
 
 ]

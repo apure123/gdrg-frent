@@ -41,20 +41,12 @@ class ContentPageFrameWoek extends Component{
                                 <Link to={"/dashboard"}>首页</Link>
                             </Menu.Item>
                             <Menu.Item key="2" icon={<DesktopOutlined />}>
-                                公司财务管理
+                                申请设备
                             </Menu.Item>
                             <SubMenu key="sub1" icon={<UserOutlined />} title="公司财务管理">
-                                <Menu.Item key="3">申请审批</Menu.Item>
+                                <Menu.Item key="3"><Link to={"/dashboard/propertyAdmin/all"}>查看员工资产</Link></Menu.Item>
                                 <Menu.Item key="4">审批历史记录</Menu.Item>
-                                <Menu.Item key="5">资产管理</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-                                <Menu.Item key="6">Team 1</Menu.Item>
-                                <Menu.Item key="8">Team 2</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub3" icon={<TeamOutlined />} title="Team">
-                                <Menu.Item key="6">Team 1</Menu.Item>
-                                <Menu.Item key="8">Team 2</Menu.Item>
+                                <Menu.Item key="5">申请审批</Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub4" icon={<TeamOutlined />} title="超级管理员">
                                 <Menu.Item key="6" ><Link to={"/dashboard/superAdmin/user"}>用户管理</Link></Menu.Item>

@@ -9,18 +9,20 @@ import {
 import {Breadcrumb, Button, Layout,Dropdown,Menu,Avatar} from "antd";
 import {superAdminRoutes} from "../../configs/routers";
 import { DownOutlined,UserOutlined } from '@ant-design/icons';
+import  "../../style/headerscope.css"
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const menu = (
     <Menu>
         <Menu.Item>
             <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-                1st menu item
+                查看个人资料
             </a>
         </Menu.Item>
         <Menu.Item>
             <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                2nd menu item
+                退出登录
             </a>
         </Menu.Item>
 
@@ -36,10 +38,10 @@ class ContentPageFW extends Component{
     render() {
 
         return(<div>
-            <Header className="site-layout-background" style={{ padding: 0 }} >
-                123123123
+            <Header className="site-layout-background" id={"headerscope"} style={{ padding: 0 }} >
+
                 <Dropdown overlay={menu}>
-                    <Avatar size="large" icon={<UserOutlined />} />
+                    <Avatar id={"avatarlogo"} size="large" icon={<UserOutlined />} />
 
                 </Dropdown>
             </Header>
