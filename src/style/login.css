@@ -1,0 +1,62 @@
+.Login{
+    background: url("../static/images/背景5.jpeg") /*no-repeat*/;
+    background-size:  100% auto;
+
+    display:inline-block;
+    width: 100%;
+    height: 100vh;
+    /*padding: 100px;*/
+}
+.login{
+    width:25%;
+    height: 100%;
+    float:right;
+    background-color: rgba(178,178,178,0.5);
+    display: flex;
+    align-items: center;
+}
+
+.register-form{
+    width: 50%;
+    height: 60%;
+    min-height: 500px;
+    background-color: rgba(178,178,178,0.75);
+    border-radius: 40px;
+
+    padding: 20px;
+    padding-top: 40px;
+
+}
+.title2{
+    justify-content: center;
+}
+
+.register-input{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.logo{
+    float: left;
+}
+
+.close{
+    float: right;
+}
+
+.registerpart{
+    width: 75%;
+    float: left;
+    margin: 0px;
+    min-height: 700px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.somebutton{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 20px;
+    padding-bottom: 60px;
+}

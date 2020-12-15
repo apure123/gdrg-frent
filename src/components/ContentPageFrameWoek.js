@@ -40,17 +40,19 @@ class ContentPageFrameWoek extends Component{
                             <Menu.Item key="1" icon={<PieChartOutlined />}>
                                 <Link to={"/dashboard"}>首页</Link>
                             </Menu.Item>
-                            <Menu.Item key="2" icon={<DesktopOutlined />}>
-                                申请设备
-                            </Menu.Item>
-                            <SubMenu key="sub1" icon={<UserOutlined />} title="公司财务管理">
-                                <Menu.Item key="3"><Link to={"/dashboard/propertyAdmin/all"}>查看员工资产</Link></Menu.Item>
-                                <Menu.Item key="4">审批历史记录</Menu.Item>
-                                <Menu.Item key="5">申请审批</Menu.Item>
+
+                            <SubMenu key="sub1" icon={<UserOutlined />} title="资产申请">
+                                <Menu.Item key="2"><Link to={"/dashboard/apply/newapply"}>资产申请</Link></Menu.Item>
+                                <Menu.Item key="3"><Link to={"/dashboard/apply/log"}>我的历史申请</Link></Menu.Item>
+                            </SubMenu>
+                            <SubMenu key="sub2" icon={<UserOutlined />} title="公司财务管理">
+                                <Menu.Item key="4"><Link to={"/dashboard/propertyAdmin/all"}>查看公司资产</Link></Menu.Item>
+                                <Menu.Item key="5"><Link to={"/dashboard/propertyAdmin/applylog"}>查看申请记录</Link></Menu.Item>
+                                <Menu.Item key="6"><Link to={"/dashboard/propertyAdmin/approve"}>待审批</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub4" icon={<TeamOutlined />} title="超级管理员">
-                                <Menu.Item key="6" ><Link to={"/dashboard/superAdmin/user"}>用户管理</Link></Menu.Item>
-                                <Menu.Item key="7"><Link to={"/dashboard/superAdmin/role"}>角色权限管理</Link></Menu.Item>
+                                <Menu.Item key="7" ><Link to={"/dashboard/superAdmin/user"}>用户管理</Link></Menu.Item>
+                                <Menu.Item key="8"><Link to={"/dashboard/superAdmin/role"}>角色权限管理</Link></Menu.Item>
                             </SubMenu>
                             <Menu.Item key="9" icon={<FileOutlined />}>
                                 Files

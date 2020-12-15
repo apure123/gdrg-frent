@@ -2,23 +2,23 @@ import {Component} from "react";
 import { Table, Tag, Space } from 'antd';
 const columns = [
     {
-        title: '资产编号',
+        title: '申请id',
         dataIndex: 'userName',
         key: 'name',
         render: text => <a>{text}</a>,
     },
     {
-        title: '资产类型',
+        title: '申请设备类型',
         dataIndex: 'age',
         key: 'age',
     },
     {
-        title: '资产名称',
+        title: '申请设备名称',
         dataIndex: 'address',
         key: 'address',
     },
     {
-        title: '分配员工',
+        title: '申请状态',
         key: 'tags',
         dataIndex: 'tags',
         render: tags => (
@@ -63,7 +63,7 @@ const data = [
     },
 ];
 
-class  ListAllProperty extends Component{
+class  ApplyLog extends Component{
 
     render() {
         return(<div>
@@ -72,4 +72,4 @@ class  ListAllProperty extends Component{
     }
 }
 
-export default ListAllProperty
+export default ApplyLog
