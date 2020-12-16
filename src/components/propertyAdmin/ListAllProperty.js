@@ -3,63 +3,50 @@ import { Table, Tag, Space } from 'antd';
 const columns = [
     {
         title: '资产编号',
-        dataIndex: 'userName',
-        key: 'name',
-        render: text => <a>{text}</a>,
+        dataIndex: 'propertyId',
+        key: 'propertyId',
     },
     {
         title: '资产类型',
-        dataIndex: 'age',
-        key: 'age',
+        dataIndex: 'deviceType',
+        key: 'deviceType',
     },
     {
         title: '资产名称',
-        dataIndex: 'address',
-        key: 'address',
+        dataIndex: 'deviceName',
+        key: 'deviceName',
     },
     {
-        title: '分配员工',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-            <>
-                {tags.map(tag => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
+        title: "分配员工",
+        dataIndex: "userName"
+    },{
+        title: "分配员工id",
+        dataIndex: "userId"
     }
 ];
 
 const data = [
     {
         key: '1',
+        propertyId:"123",
+        deviceType:"键盘",
+        deviceName:"keyboard123123",
         userName: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
+        userId:"24",
+    },{
         key: '2',
-        userName: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
+        propertyId:"124",
+        deviceType:"键盘",
+        deviceName:"keyboard123123",
+        userName: '李狗蛋',
+        userId:"23",
+    },{
         key: '3',
-        userName: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
+        propertyId:"125",
+        deviceType:"键盘",
+        deviceName:"keyboard123123",
+        userName: '赵小花',
+        userId:"21",
     },
 ];
 

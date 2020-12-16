@@ -2,72 +2,73 @@ import {Component} from "react";
 import { Table, Tag, Space } from 'antd';
 const columns = [
     {
-        title: '申请编号',
-        dataIndex: 'userName',
-        key: 'name',
-        render: text => <a>{text}</a>,
+        title: '申请id',
+        dataIndex: 'applyId',
+        key: 'applyId',
     },
     {
         title: '申请人id',
-        dataIndex: 'age',
-        key: 'age',
+        dataIndex: 'userId',
+        key: 'userId',
     },
     {
         title: '申请人',
-        dataIndex: 'address',
-        key: 'address',
+        dataIndex: 'userName',
+        key: 'userName',
     },
     {
-        title: '设备类型',
+        title: '申请设备类型',
         dataIndex: 'deviceType',
+        key: 'deviceType',
     },
     {
-        title: "设备名称",
-        dataIndex: "deviceName"
+        title: '申请设备名称',
+        dataIndex: 'deviceName',
+        key: 'deviceName',
     },
     {
-        title: '审批状态',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-            <>
-                {tags.map(tag => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
+        title:"申请状态",
+        key: "applyState",
+        dataIndex: "applyState",
+        render: (status)=>{
+            if (status==="allow"){
+                return <Tag color="success">已通过</Tag>
+            }else if (status==="refuse"){
+                return <Tag color={"error"}>已拒绝</Tag>
+            }else {
+                return <Tag color={"processing"}>未处理</Tag>
+            }
+        }
+    }
 ];
 
 const data = [
     {
         key: '1',
-        userName: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
+        applyId:"111",
+        userId:"12",
+        userName:"张三",
+        deviceType:"键盘",
+        deviceName:"键盘1",
+        applyState:"waiting"
     },
     {
         key: '2',
-        userName: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
+        applyId:"121",
+        userId:"12",
+        userName:"张4",
+        deviceType:"键盘",
+        deviceName:"键盘1",
+        applyState:"allow"
     },
     {
         key: '3',
-        userName: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
+        applyId:"113",
+        userId:"13",
+        userName:"张5",
+        deviceType:"键盘",
+        deviceName:"键盘2",
+        applyState:"refuse"
     },
 ];
 
