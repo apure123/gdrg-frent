@@ -1,5 +1,6 @@
 import {Component} from "react";
 import { Table, Tag, Space } from 'antd';
+import {connect} from "react-redux"
 const columns = [
     {
         title: '申请id',
@@ -42,43 +43,29 @@ const columns = [
     }
 ];
 
-const data = [
-    {
-        key: '1',
-        applyId:"111",
-        userId:"12",
-        userName:"张三",
-        deviceType:"键盘",
-        deviceName:"键盘1",
-        applyState:"waiting"
-    },
-    {
-        key: '2',
-        applyId:"121",
-        userId:"12",
-        userName:"张4",
-        deviceType:"键盘",
-        deviceName:"键盘1",
-        applyState:"allow"
-    },
-    {
-        key: '3',
-        applyId:"113",
-        userId:"13",
-        userName:"张5",
-        deviceType:"键盘",
-        deviceName:"键盘2",
-        applyState:"refuse"
-    },
-];
+
 
 class  CheckApplyLog extends Component{
 
     render() {
         return(<div>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={this.props.applyLog} />
         </div>)
     }
 }
 
+
+function mapStateToProps(state)
+{
+    return{
+        applyLog:state.applyLog.applyLogList,
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+
+    }
+}
+CheckApplyLog=connect(mapStateToProps,null)(CheckApplyLog);
 export default CheckApplyLog

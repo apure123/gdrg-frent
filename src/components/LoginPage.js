@@ -20,6 +20,9 @@ const Formitem=Form.item;
 class LoginPage extends Component{
     constructor(props) {
         super(props);
+        this.state={
+            registerFlag:false
+        }
 
     }
 
@@ -84,6 +87,22 @@ class LoginPage extends Component{
             })
     }
 
+    //改变注册窗口是否显示
+    changeRegisterFlag=()=>{
+        if (this.state.registerFlag===true){
+            this.setState({
+                registerFlag:false
+            })
+        }else {
+            this.setState({
+                ...this.state,
+                registerFlag:true
+            })
+        }
+        console.log("注册状态改变后");
+        console.log(this.state);
+    }
+
     render() {
 
         const {register}=this.props
@@ -95,14 +114,13 @@ class LoginPage extends Component{
         return(
 
             <div className="Login">
-                {this.props.loginflag?<Redirect to={"/chat"}/>:""}
+                {this.props.loginflag?<Redirect to={"/dashboard"}/>:""}
                 {/*左边注册部分*/}
                 <div style={{width:"75%",float:"left",margin:"0",minHeight:"700px",height:"100vh"}} className={"registerpart"}>
 
-
                     {
-                        this.props.registerFlag ?
-                            <Register/>
+                        this.state.registerFlag ?
+                            <Register changeRegisterFlag={this.changeRegisterFlag}/>
                             :
                             <div></div>
                     }
@@ -129,7 +147,7 @@ class LoginPage extends Component{
                         <Form.Item>
                             <div className={"somebutton"}>
                                 <Button type="primary" htmlType="submit" style={{margin:"auto",marginRight:"10px",marginLeft:"10px"}} >登录</Button>
-                                <Button onClick={register}>注册</Button>
+                                <Button onClick={this.changeRegisterFlag}>注册</Button>
                             </div>
                         </Form.Item>
 

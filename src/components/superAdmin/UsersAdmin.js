@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import {Table, Input, InputNumber, Popconfirm, Form, Select, Tag,Button} from 'antd';
+import {connect} from "react-redux"
+
+
 const originData = [];
 const { Option } = Select;
 for (let i = 0; i < 5; i++) {

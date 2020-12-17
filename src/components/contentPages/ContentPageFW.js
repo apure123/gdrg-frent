@@ -1,5 +1,5 @@
 import {Component} from "react"
-
+import {connect} from "react-redux"
 import {
     BrowserRouter as Router,
     Switch,
@@ -13,26 +13,27 @@ import  "../../style/headerscope.css"
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const menu = (
-    <Menu>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-                查看个人资料
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                退出登录
-            </a>
-        </Menu.Item>
 
-    </Menu>
-);
 
 
 class ContentPageFW extends Component{
 
 
+     menu = (
+        <Menu>
+            <Menu.Item>
+                <a >
+                    查看个人资料
+                </a>
+            </Menu.Item>
+            <Menu.Item>
+                <a onClick={this.props.logout}>
+                    退出登录
+                </a>
+            </Menu.Item>
+
+        </Menu>
+    );
 
 
     render() {
@@ -40,7 +41,7 @@ class ContentPageFW extends Component{
         return(<div>
             <Header className="site-layout-background" id={"headerscope"} style={{ padding: 0 }} >
 
-                <Dropdown overlay={menu}>
+                <Dropdown overlay={this.menu}>
                     <Avatar id={"avatarlogo"} size="large" icon={<UserOutlined />} />
 
                 </Dropdown>
@@ -68,5 +69,15 @@ class ContentPageFW extends Component{
     </div>)
     }
 }
+
+function mapDispatchToProps(dispatch){
+    return{
+
+        logout:()=>{dispatch({type:"logout"})},
+
+    }
+}
+
+ContentPageFW=connect(null,mapDispatchToProps)(ContentPageFW)
 
 export default ContentPageFW

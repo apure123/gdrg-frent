@@ -1,5 +1,7 @@
 import {Component} from "react";
 import { Table, Tag, Space } from 'antd';
+import {connect} from "react-redux"
+
 const columns = [
     {
         title: '申请编号',
@@ -67,9 +69,23 @@ class  Approve extends Component{
 
     render() {
         return(<div>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={this.props.approveList} />
         </div>)
     }
 }
 
+function mapStateToProps(state)
+{
+    return{
+         approveList:state.approve.approveList,
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+
+    }
+}
+
+Approve=connect(mapStateToProps,mapDispatchToProps)(Approve)
 export default Approve

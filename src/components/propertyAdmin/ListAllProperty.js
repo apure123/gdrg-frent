@@ -1,5 +1,6 @@
 import {Component} from "react";
 import { Table, Tag, Space } from 'antd';
+import {connect} from "react-redux"
 const columns = [
     {
         title: '资产编号',
@@ -54,9 +55,17 @@ class  ListAllProperty extends Component{
 
     render() {
         return(<div>
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={this.props.allProperty} />
         </div>)
     }
 }
+function mapStateToProps(state)
+{
+    return{
+        allProperty:state.allProperty.allProperty,
+    }
+}
+
+ListAllProperty=connect(mapStateToProps,null)(ListAllProperty);
 
 export default ListAllProperty
