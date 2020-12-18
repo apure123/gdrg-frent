@@ -1,59 +1,112 @@
 import {Component} from "react";
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space,Input, Button } from 'antd';
+import Highlighter from 'react-highlight-words';
+import { SearchOutlined } from '@ant-design/icons';
 import {connect} from "react-redux"
-const columns = [
-    {
-        title: '资产编号',
-        dataIndex: 'propertyId',
-        key: 'propertyId',
-    },
-    {
-        title: '资产类型',
-        dataIndex: 'deviceType',
-        key: 'deviceType',
-    },
-    {
-        title: '资产名称',
-        dataIndex: 'deviceName',
-        key: 'deviceName',
-    },
-    {
-        title: "分配员工",
-        dataIndex: "userName"
-    },{
-        title: "分配员工id",
-        dataIndex: "userId"
-    }
-];
 
-const data = [
-    {
-        key: '1',
-        propertyId:"123",
-        deviceType:"键盘",
-        deviceName:"keyboard123123",
-        userName: 'John Brown',
-        userId:"24",
-    },{
-        key: '2',
-        propertyId:"124",
-        deviceType:"键盘",
-        deviceName:"keyboard123123",
-        userName: '李狗蛋',
-        userId:"23",
-    },{
-        key: '3',
-        propertyId:"125",
-        deviceType:"键盘",
-        deviceName:"keyboard123123",
-        userName: '赵小花',
-        userId:"21",
-    },
-];
+
 
 class  ListAllProperty extends Component{
+    state = {
+        searchText: '',
+        searchedColumn: '',
+    };
+    getColumnSearchProps = dataIndex => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={{ padding: 8 }}>
+                <Input
+                    ref={node => {
+                        this.searchInput = node;
+                    }}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{ width: 188, marginBottom: 8, display: 'block' }}
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        style={{ width: 90 }}
+                    >
+                        Search
+                    </Button>
+                    <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+                        Reset
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+        onFilter: (value, record) =>
+            record[dataIndex]
+                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+                : '',
+        onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render: text =>
+            this.state.searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+                    searchWords={[this.state.searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (
+                text
+            ),
+    });
+
+    handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        this.setState({
+            searchText: selectedKeys[0],
+            searchedColumn: dataIndex,
+        });
+    };
+
+    handleReset = clearFilters => {
+        clearFilters();
+        this.setState({ searchText: '' });
+    };
 
     render() {
+        const columns = [
+            {
+                title: '资产编号',
+                dataIndex: 'propertyId',
+                key: 'propertyId',
+                ...this.getColumnSearchProps('propertyId'),
+            },
+            {
+                title: '资产类型',
+                dataIndex: 'deviceType',
+                key: 'deviceType',
+                ...this.getColumnSearchProps('deviceType'),
+            },
+            {
+                title: '资产名称',
+                dataIndex: 'deviceName',
+                key: 'deviceName',
+                ...this.getColumnSearchProps('deviceName'),
+            },
+            {
+                title: "分配员工",
+                dataIndex: "userName",
+                ...this.getColumnSearchProps('userName'),
+            },{
+                title: "分配员工id",
+                dataIndex: "userId",
+                ...this.getColumnSearchProps('userId'),
+            }
+        ];
+
         return(<div>
             <Table columns={columns} dataSource={this.props.allProperty} />
         </div>)
