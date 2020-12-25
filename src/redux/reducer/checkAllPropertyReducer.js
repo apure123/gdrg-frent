@@ -28,7 +28,7 @@ const allPropertyReducer=(state ={
         case "refreshAllProperty":{
             return{
                 ...state,
-                applylog: action.allProperty
+                allProperty: action.allProperty
 
             }
         }

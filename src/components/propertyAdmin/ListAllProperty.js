@@ -3,6 +3,7 @@ import { Table, Tag, Space,Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {connect} from "react-redux"
+import {getAllProperty} from "../../server/serverUrlConfig/getAllProperty";
 
 
 
@@ -11,6 +12,13 @@ class  ListAllProperty extends Component{
         searchText: '',
         searchedColumn: '',
     };
+
+    componentDidMount() {
+        console.log("开始请求----------------");
+        getAllProperty();
+    }
+
+
     getColumnSearchProps = dataIndex => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
             <div style={{ padding: 8 }}>
