@@ -4,7 +4,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, Redirect
 } from "react-router-dom";
 
 
@@ -12,15 +12,17 @@ class AppDirect extends Component{
 
     render() {return(<div>
         <Router>
-
-            {routes.map((routeitem,key)=>{
-                if (routeitem.exact)
-                {
-                    return <Route  exact path={routeitem.path} component={routeitem.component}/>
-                }else {
-                    return <Route  path={routeitem.path} component={routeitem.component}/>
-                }
-            })}
+            <Switch>
+                {routes.map((routeitem,key)=>{
+                    if (routeitem.exact)
+                    {
+                        return <Route  exact path={routeitem.path} component={routeitem.component}/>
+                    }else {
+                        return <Route  path={routeitem.path} component={routeitem.component}/>
+                    }
+                })}
+                <Redirect from={"/"} to={"/login"}></Redirect>
+            </Switch>
         </Router>
 
     </div>)

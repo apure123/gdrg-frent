@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button, Checkbox, Input,Form,message} from "antd";
 import {connect} from "react-redux";
 import axios from "axios"
+import {rigisterUrl} from "../../server/serverUrlConfig/serverUrlConfig";
 /*import ajax_url from "../../server_config/ajax_url";*/
 
 const formItemLayout = {
@@ -108,26 +109,26 @@ class Register extends Component{
 
     //antdv4的测试方法
     registerSubmit_test1=(values)=>{
-        var fd = new FormData()
-        fd.append('username', values.account);
-        fd.append('password', values.password);
-        fd.append('nickname', values.nickname);
-        fd.append('email', values.email);
         var data={
             username:values.account,
             password:values.password,
-            nickname:values.nickname,
+            /*nickname:values.nickname,*/
             email:values.email
         }
 
-        axios.post(`${ajax_url}/register`, data)
+        axios.post(rigisterUrl, data)
             .then(function (response) {
                 console.log("下面是服务器返回信息");
                 console.log(response);
-                if (response.data==="插入成功"){
+                if (response.status===200){
                     message.success('注册成功，快去登陆吧！');
                 }else {
-                    message.error(response.data);
+                    if(response.data.msg){
+                        message.error(response.data.msg);
+                    }else {
+                        message.error("未知错误")
+                    }
+
                 }
 
 

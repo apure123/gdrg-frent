@@ -7,6 +7,8 @@ import { UserOutlined } from '@ant-design/icons';
 
 import Register from "./loginPage/Register";
 import axios from "axios"
+import {loginUrl} from "../server/serverUrlConfig/serverUrlConfig";
+import {loginOperation} from "../server/serverUrlConfig/LoginOperation";
 /*import ajax_url from "../../server_config/ajax_url";*/
 
 const ajax_url="12313";
@@ -71,20 +73,7 @@ class LoginPage extends Component{
     }
 
     loginnewtest=(values)=>{
-        console.log(values);
-        axios.post(`${ajax_url}/login`,{username:values.loginUserName,password:values.loginPassword})
-            .then( (response) =>{
-                if (response.data.res===1){
-                    message.success("登陆成功");
-                    this.props.loginsubmit("测试uid",response.data.nickname,response.data.account)
-                }else {
-                    message.error(response.data.message);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                message.error("登录失败")
-            })
+        loginOperation(values.loginUserName,values.loginPassword)
     }
 
     //改变注册窗口是否显示
@@ -105,12 +94,13 @@ class LoginPage extends Component{
 
     render() {
 
-        const {register}=this.props
 
         // if (this.props.loginflag)
         // {
         //     return<Redirect to={"/system"}/>
         // }
+        console.log(this.props.loginflag);
+
         return(
 
             <div className="Login">
@@ -167,21 +157,17 @@ class LoginPage extends Component{
 function mapStateToProps(state)
 {
     return{
-        registerFlag:state.login.regflag,
-        loginflag:state.login.loginflag
+
+        loginflag:state.loginstate.isLogin
     }
 }
 
 function mapDispatchToProps(dispatch){
     return{
 
-        register:()=>{dispatch({type:"open_register"})},
 
-        loginsubmit:(uid,nickname,account)=>{
-            dispatch({type:"login",nickname:nickname,uid:uid,account:account});
-        },
     }
 }
 
-/*LoginPage=connect(mapStateToProps,mapDispatchToProps)(LoginPage)*/
+LoginPage=connect(mapStateToProps,mapDispatchToProps)(LoginPage)
 export default  LoginPage;
