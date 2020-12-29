@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Form, Input, Button, Checkbox, Select} from 'antd';
+import { Form, Input, Button, Checkbox } from 'antd';
 import  "../../style/newapply.css";
 
 const layout = {
@@ -17,7 +17,7 @@ const tailLayout = {
     },
 };
 
-const NewUser = () => {
+const NewRole = () => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -61,41 +61,6 @@ const NewUser = () => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item
-                    label="账号角色"
-                    name="role"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input accountState!',
-                        },
-                    ]}
-                >
-                    <Select
-                        mode="multiple"
-                        style={{ width: '100%' }}
-                        placeholder="选择用户类型"
-                        /*defaultValue={['china']}*/
-
-                        optionLabelProp="label"
-                    >
-                        <Select.Option value="超级用户" label="超级">
-                            <div className="demo-option-label-item">
-                    <span role="img" aria-label="China">
-                    </span>
-                                超级用户
-                            </div>
-                        </Select.Option>
-                        <Select.Option value="老板" label="boss">
-                            <div className="demo-option-label-item">
-                    <span role="img" aria-label="USA">
-                    </span>
-                                老板
-                            </div>
-                        </Select.Option>
-
-                    </Select>
-                </Form.Item>
 
 
 
@@ -108,7 +73,6 @@ const NewUser = () => {
                         提交申请
                     </Button>
                 </Form.Item>
-
             </Form>
 
         </div>
@@ -118,4 +82,4 @@ const NewUser = () => {
 }
 
 
-export default NewUser
+export default NewRole

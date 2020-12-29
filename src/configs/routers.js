@@ -8,6 +8,8 @@ import CheckApplyLog from "../components/propertyAdmin/CheckApplyLog";
 import Approve from "../components/propertyAdmin/Approve";
 import NewApply from "../components/apply/NewApply";
 import ApplyLog from "../components/apply/ApplyLog";
+import NewUser from "../components/superAdmin/NewUser";
+import NewRole from "../components/superAdmin/NewRole";
 
 export const routes=[
 
@@ -33,10 +35,21 @@ export const superAdminRoutes=[
         exact:true
     },
     {
+        path:"/dashboard/superAdmin/newuser",
+        component:NewUser,
+        exact:true
+    },
+    {
         path:"/dashboard/superAdmin/role",
         component:RoleAdminTable,
         exact:true
-    },{
+    },
+    {
+        path:"/dashboard/superAdmin/newrole",
+        component:NewRole,
+        exact:true
+    },
+    {
         path: "/dashboard/propertyAdmin/all",
         component:ListAllProperty
     },
