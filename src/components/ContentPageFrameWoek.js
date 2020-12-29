@@ -52,11 +52,11 @@ class ContentPageFrameWoek extends Component{
                             </SubMenu>
                             <SubMenu key="sub4" icon={<TeamOutlined />} title="超级管理员">
                                 <Menu.Item key="7" ><Link to={"/dashboard/superAdmin/user"}>用户管理</Link></Menu.Item>
-                                <Menu.Item key="8"><Link to={"/dashboard/superAdmin/role"}>角色权限管理</Link></Menu.Item>
+                                <Menu.Item key="8" ><Link to={"/dashboard/superAdmin/newuser"}>新建用户</Link></Menu.Item>
+                                <Menu.Item key="9"><Link to={"/dashboard/superAdmin/role"}>角色权限管理</Link></Menu.Item>
+                                <Menu.Item key="10"><Link to={"/dashboard/superAdmin/newrole"}>新建角色</Link></Menu.Item>
                             </SubMenu>
-                            <Menu.Item key="9" icon={<FileOutlined />}>
-                                Files
-                            </Menu.Item>
+
                         </Menu>
                 </Sider>
                 <Layout className="site-layout">
