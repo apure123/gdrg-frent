@@ -3,7 +3,7 @@ import { Table, Tag, Space,Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {connect} from "react-redux"
-import {getAllProperty} from "../../server/serverUrlConfig/getAllProperty";
+import {getAllProperty} from "../../server/getAllProperty";
 
 
 

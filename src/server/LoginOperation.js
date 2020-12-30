@@ -1,8 +1,8 @@
 //定义一下登录的操作
 import axios from "axios";
-import {loginUrl} from "./serverUrlConfig";
+import {loginUrl} from "./serverUrlConfig/serverUrlConfig";
 import {message} from "antd";
-import {store} from "../../middleware/store";
+import {store} from "../middleware/store";
 
 export const loginOperation=(loginUserName,loginPassword)=>{
 

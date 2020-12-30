@@ -6,10 +6,11 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import {Breadcrumb, Button, Layout,Dropdown,Menu,Avatar} from "antd";
+import {Breadcrumb, Button, Layout,Dropdown,Menu,Avatar,Drawer} from "antd";
 import {superAdminRoutes} from "../../configs/routers";
 import { DownOutlined,UserOutlined } from '@ant-design/icons';
 import  "../../style/headerscope.css"
+import UserInfoDrawer from "./UserInfoDrawer";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -17,12 +18,31 @@ const { Header, Content, Footer, Sider } = Layout;
 
 
 class ContentPageFW extends Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            visible:false
+        }
+    }
+    showDrawer = () => {
+        this.setState({
+            ...this.state,
+            visible:true
+        })
+    };
+
+    onClose = () => {
+        this.setState({
+            ...this.state,
+            visible:false
+        })
+    };
 
 
-     menu = (
+    menu = (
         <Menu>
             <Menu.Item>
-                <a >
+                <a onClick={this.showDrawer}>
                     查看个人资料
                 </a>
             </Menu.Item>
@@ -39,6 +59,17 @@ class ContentPageFW extends Component{
     render() {
 
         return(<div>
+            <Drawer
+                title="用户详情信息"
+                placement="right"
+                closable={false}
+                onClose={this.onClose}
+                visible={this.state.visible}
+                width={400}
+            >
+                <UserInfoDrawer></UserInfoDrawer>
+
+            </Drawer>
             <Header className="site-layout-background" id={"headerscope"} style={{ padding: 0 }} >
 
                 <Dropdown overlay={this.menu}>

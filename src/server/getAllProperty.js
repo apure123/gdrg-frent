@@ -1,6 +1,6 @@
 import axios from "axios"
-import {allPropertyUrl} from "./serverUrlConfig";
-import {store} from "../../middleware/store";
+import {allPropertyUrl} from "./serverUrlConfig/serverUrlConfig";
+import {store} from "../middleware/store";
 
 export const getAllProperty=()=>{
 
