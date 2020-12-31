@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {Table, Input, InputNumber, Popconfirm, Form, Select, Tag,Button} from 'antd';
 import {connect} from "react-redux"
+import {getAllUser} from "../../server/superAdmin/getAllUser";
+import {deleteUserById} from "../../server/superAdmin/deleteUser";
 
 
-const originData = [];
+
 const { Option } = Select;
-for (let i = 0; i < 5; i++) {
-    originData.push({
-        key: i.toString(),
-        name: `Edrward ${i}`,
-        age: 32,
-        account: `London Park no. ${i}`,
-        roles:["管理员","123"],
-        status:"active"
-    });
-}
+
 
 
 //角色选择的事件
@@ -92,9 +85,16 @@ const EditableCell = ({
     );
 };
 
-const UsersAdminTable = () => {
+var UsersAdminTable = (props) => {
+
+    //模拟componentDidMount
+    useEffect(()=>{
+        getAllUser();
+        console.log("--------获取了用户列表-------")
+    },[])
+
     const [form] = Form.useForm();
-    const [data, setData] = useState(originData);
+    //const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
 
     //传入表格的一行记录，判断这行是不是在编辑中
@@ -116,21 +116,22 @@ const UsersAdminTable = () => {
         setEditingKey('');
     };
 
+    //这个函数等待修改
     //保存编辑更改
     const save = async (key) => {
         try {
             const row = await form.validateFields();
-            const newData = [...data];
+            const newData = [...props.userList];
             const index = newData.findIndex((item) => key === item.key);
 
             if (index > -1) {
                 const item = newData[index];
                 newData.splice(index, 1, { ...item, ...row });
-                setData(newData);
+                //setData(newData);
                 setEditingKey('');
             } else {
                 newData.push(row);
-                setData(newData);
+               // setData(newData);
                 setEditingKey('');
             }
         } catch (errInfo) {
@@ -140,25 +141,25 @@ const UsersAdminTable = () => {
 
     const columns = [
         {
+            title: '用户id',
+            dataIndex: 'userId',
+            width: '20%',
+            editable: false,
+        },
+        {
             title: '用户名',
-            dataIndex: 'name',
+            dataIndex: 'userName',
             width: '25%',
-            editable: true,
+            editable: false,
         },
         {
             title: '账号状态',
             dataIndex: 'status',
             width: '15%',
-            editable: true,
+            editable: false,
             render:(item)=>{
                 return  item==="active"? <Tag color="success">正常</Tag>:<Tag color="error">冻结</Tag>
             }
-        },
-        {
-            title: '账号',
-            dataIndex: 'account',
-            width: '20%',
-            editable: true,
         },
         {
             title: "角色",
@@ -193,7 +194,7 @@ const UsersAdminTable = () => {
             >
               保存
             </a>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+            <Popconfirm title="放弃更改?" onConfirm={cancel}>
               <a>取消</a>
             </Popconfirm>
           </span>
@@ -202,12 +203,21 @@ const UsersAdminTable = () => {
                         <a disabled={editingKey !== ''} onClick={() => edit(record)} style={{
                             marginRight: 8,
                         }}>
-                            编辑
+                            编辑角色
                         </a>
-                        <a style={{
-                            marginRight: 8,
-                        }}>删除
+                        {
+                            record.status&&record.status==="active"?<a style={{marginRight: 8,}}>冻结</a>:<a style={{marginRight: 8,}}>激活</a>
+                        }
+
+                        <Popconfirm title="确认删除用户?" onConfirm={()=>{
+                            deleteUserById(record.userId)
+                        }}>
+                            <a style={{
+                                marginRight: 8,
+                            }} >删除
                         </a>
+                        </Popconfirm>
+
 
                     </span>
 
@@ -232,27 +242,13 @@ const UsersAdminTable = () => {
         };
     });
 
-    const AddaRow = () => {
-
-        let newdata=[...data];
-        newdata.push({
-            key: data.length.toString(),
-            name: "",
-            age: 32,
-            account: "",
-            roles:["管理员","123"],
-            status:"active"
-        })
-        setData(newdata);
-        setEditingKey(data.length.toString());
-    };
 
     return (
         <div>
-            <Button onClick={AddaRow} type="primary" style={{ marginBottom: 16,marginRight:16 }}>
-                新增用户
-            </Button>
-            <Button  type="primary" style={{ marginBottom: 16 }}>
+            <Button  type="primary" style={{ marginBottom: 16 }} onClick={()=>{
+                getAllUser();
+
+            }}>
                 刷新数据
             </Button>
             <Form form={form} component={false}>
@@ -263,7 +259,7 @@ const UsersAdminTable = () => {
                         },
                     }}
                     bordered
-                    dataSource={data}
+                    dataSource={props.userList}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
@@ -274,8 +270,15 @@ const UsersAdminTable = () => {
         </div>
 
     );
-};
+}
 
+function mapStateToProps(state)
+{
+    return{
+        userList:state.allUser.userList
+    }
+}
 
+UsersAdminTable=connect(mapStateToProps,null) (UsersAdminTable)
 
 export default UsersAdminTable

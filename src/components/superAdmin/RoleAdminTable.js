@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {Table, Input, InputNumber, Popconfirm, Form, Select, Tag,Button} from 'antd';
 import {connect} from "react-redux"
+import {deleteUserById} from "../../server/superAdmin/deleteUser";
+import {getAllUser} from "../../server/superAdmin/getAllUser";
+import {getAllRole} from "../../server/superAdmin/getAllRole";
 
 const originData = [];
 const { Option } = Select;
@@ -88,9 +91,16 @@ const EditableCell = ({
     );
 };
 
-const UsersAdminTable = () => {
+const UsersAdminTable = (props) => {
+
+    //模拟componentDidMount
+    useEffect(()=>{
+        getAllRole();
+        console.log("--------获取了角色列表-------")
+    },[])
+
     const [form] = Form.useForm();
-    const [data, setData] = useState(originData);
+
     const [editingKey, setEditingKey] = useState('');
 
     //传入表格的一行记录，判断这行是不是在编辑中
@@ -113,7 +123,7 @@ const UsersAdminTable = () => {
 
     //保存编辑更改
     const save = async (key) => {
-        try {
+        /*try {
             const row = await form.validateFields();
             const newData = [...data];
             const index = newData.findIndex((item) => key === item.key);
@@ -121,29 +131,35 @@ const UsersAdminTable = () => {
             if (index > -1) {
                 const item = newData[index];
                 newData.splice(index, 1, { ...item, ...row });
-                setData(newData);
+                //setData(newData);
                 setEditingKey('');
             } else {
                 newData.push(row);
-                setData(newData);
+                //setData(newData);
                 setEditingKey('');
             }
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);
-        }
+        }*/
     };
 
     const columns = [
         {
+            title: '角色id',
+            dataIndex: 'roleId',
+            width: '15%',
+            editable: false,
+        },
+        {
             title: '角色名',
             dataIndex: 'roleName',
-            width: '25%',
-            editable: true,
+            width: '20%',
+            editable: false,
         },
         {
             title: "权限",
             dataIndex: "privilege",
-            width: '55%',
+            width: '50%',
             editable: true,
             render:(item)=>{
                 return (item)? <div>
@@ -181,12 +197,16 @@ const UsersAdminTable = () => {
                         <a disabled={editingKey !== ''} onClick={() => edit(record)} style={{
                             marginRight: 8,
                         }}>
-                            编辑
+                            编辑权限
                         </a>
-                        <a style={{
-                            marginRight: 8,
-                        }}>删除
+                        <Popconfirm title="确认删除角色?" onConfirm={()=>{
+                            //删除角色
+                        }}>
+                            <a style={{
+                                marginRight: 8,
+                            }} >删除
                         </a>
+                        </Popconfirm>
 
                     </span>
 
@@ -211,24 +231,14 @@ const UsersAdminTable = () => {
         };
     });
 
-    const AddaRow = () => {
 
-        let newdata=[...data];
-        newdata.push({
-            key: data.length.toString(),
-            roleName: "",
-            privilege:[]
-        })
-        setData(newdata);
-        setEditingKey(data.length.toString());
-    };
 
     return (
         <div>
-            <Button onClick={AddaRow} type="primary" style={{ marginBottom: 16,marginRight:16 }}>
-                新增角色
-            </Button>
-            <Button  type="primary" style={{ marginBottom: 16 }}>
+
+            <Button  type="primary" style={{ marginBottom: 16 }} onClick={()=>{
+                getAllRole();
+            }}>
                 刷新数据
             </Button>
             <Form form={form} component={false}>
@@ -239,7 +249,7 @@ const UsersAdminTable = () => {
                         },
                     }}
                     bordered
-                    dataSource={data}
+                    dataSource={props.roleList}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
@@ -253,5 +263,10 @@ const UsersAdminTable = () => {
 };
 
 
-
-export default UsersAdminTable
+function mapStateToProps(state)
+{
+    return{
+        roleList:state.allRole.roleList
+    }
+}
+export default connect(mapStateToProps,null) (UsersAdminTable)

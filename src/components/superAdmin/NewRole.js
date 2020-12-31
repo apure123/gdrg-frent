@@ -1,6 +1,7 @@
 import {Component} from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
 import  "../../style/newapply.css";
+import {addRole} from "../../server/superAdmin/newRole";
 
 const layout = {
     labelCol: {
@@ -20,6 +21,7 @@ const tailLayout = {
 const NewRole = () => {
     const onFinish = (values) => {
         console.log('Success:', values);
+        addRole(values.roleName)
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -38,18 +40,18 @@ const NewRole = () => {
                 onFinishFailed={onFinishFailed}
             >
                 <Form.Item
-                    label="用户名"
-                    name="userName"
+                    label="角色名"
+                    name="roleName"
                     rules={[
                         {
                             required: true,
-                            message: '用户名不能为空',
+                            message: '角色名不能为空',
                         },
                     ]}
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item
+                {/*<Form.Item
                     label="账号状态"
                     name="accountState"
                     rules={[
@@ -60,7 +62,7 @@ const NewRole = () => {
                     ]}
                 >
                     <Input />
-                </Form.Item>
+                </Form.Item>*/}
 
 
 

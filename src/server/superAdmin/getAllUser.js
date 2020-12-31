@@ -1,28 +1,29 @@
 import axios from "axios"
 
-import {store} from "../middleware/store";
 
-export const getAllProperty=()=>{
+import {getAllUserUrl} from "../serverUrlConfig/serverUrlConfig";
+import {store} from "../../middleware/store";
 
-    axios.get(allPropertyUrl,null)
+export const getAllUser=()=>{
+
+    let keyindex=0;
+    axios.get(getAllUserUrl,null)
         .then((res)=>{
-            console.log("获取了数据库里面的财产列表");
-            console.log(res.data);
 
             //把返回的数据格式转换一下
-            let newlist=res.data.map((item)=>{
+            let newlist=res.data.data.map((item)=>{
+                keyindex++;
                 return {
-                    propertyId:item.id,
-                    deviceType:item.type,
-                    deviceName:item.assetname,
-                    userId:item.ownerid,
-                    userName:"还没映射"
+                    key:keyindex,
+                    userId:item.user.id,
+                    userName:item.user.username,
+                    status:item.user.enable?"active":"frozen",
+                    roles:item.roles
 
                 }
             })
-            console.log(newlist);
 
-
-            store.dispatch({type:"refreshAllProperty",allProperty:newlist})
+            store.dispatch({type:"refreshUserList",userList:newlist})
         })
 }
+

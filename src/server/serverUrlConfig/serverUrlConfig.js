@@ -7,11 +7,11 @@ export const allPropertyUrl=`${domainUrl}/asset/all`
 export const loginUrl=`${domainUrl}/user/login`
 export const rigisterUrl=`${domainUrl}/user/register`
 
-export const getAllUserUrl=""
-export const getAllRoleUrl=""
+export const getAllUserUrl=`${domainUrl}/user/getAllUsers`
+export const getAllRoleUrl=`${domainUrl}/role/getAllRoles`
 export const addUserUrl=""
-export const deleteUserUrl=""
-export const addRoleUrl=""
+export const deleteUserUrl=`${domainUrl}/user/deleteUser`
+export const addRoleUrl=`${domainUrl}/role/addRole`
 export const deleteRoleUrl=""
 export const addPropertyUrl=""
 export const getUserInfoUrl=""
