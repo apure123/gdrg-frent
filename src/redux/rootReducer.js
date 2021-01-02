@@ -6,6 +6,7 @@ import approveListReducer from "./reducer/approveListReducer";
 import applyLogReducer from "./reducer/applyLogReducer";
 import allUserInfoReducer from "./reducer/allUserInfoReducer";
 import allRoleReducer from "./reducer/allRoleReducer";
+import allPrivilegeReducer from "./reducer/allPrivilegeReducer";
 
 const rootReducer=combineReducers({
     loginstate:loginStateReducer,
@@ -15,6 +16,8 @@ const rootReducer=combineReducers({
     applyLog:applyLogReducer,
     allUser:allUserInfoReducer,
     allRole:allRoleReducer,
+    allPrivilege:allPrivilegeReducer,
+
 
 
 

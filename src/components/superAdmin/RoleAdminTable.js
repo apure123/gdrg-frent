@@ -21,75 +21,7 @@ function handleChange(value) {
     console.log(`selected ${value}`);
 }
 
-//可编辑的表格单元格，需要在这里指定渲染类型
-//会根据dataIndex渲染不同的组件
-const EditableCell = ({
-                          editing,
-                          dataIndex,
-                          title,
-                          inputType,
-                          record,
-                          index,
-                          children,
-                          ...restProps
-                      }) => {
-    let inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
 
-    if (dataIndex==="privilege"){
-        inputNode=<Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="选择权限"
-            /*defaultValue={['china']}*/
-            onChange={handleChange}
-            optionLabelProp="label"
-        >
-            <Option value="超级用户" label="超级">
-                <div className="demo-option-label-item">
-                    <span role="img" aria-label="China">
-                    </span>
-                    超级用户
-                </div>
-            </Option>
-            <Option value="老板" label="boss">
-                <div className="demo-option-label-item">
-                    <span role="img" aria-label="USA">
-                    </span>
-                    老板
-                </div>
-            </Option>
-
-        </Select>
-    }else if (dataIndex==="status"){
-        inputNode=<Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
-            <Option value="active">正常</Option>
-            <Option value="frozen">冻结</Option>
-        </Select>
-
-    }
-    return (
-        <td {...restProps}>
-            {editing ? (
-                <Form.Item
-                    name={dataIndex}
-                    style={{
-                        margin: 0,
-                    }}
-                    rules={[
-                        {
-                            required: true,
-                            message: `请输入${title}!`,
-                        },
-                    ]}
-                >
-                    {inputNode}
-                </Form.Item>
-            ) : (
-                children
-            )}
-        </td>
-    );
-};
 
 const UsersAdminTable = (props) => {
 
@@ -98,6 +30,72 @@ const UsersAdminTable = (props) => {
         getAllRole();
         console.log("--------获取了角色列表-------")
     },[])
+
+    //可编辑的表格单元格，需要在这里指定渲染类型
+//会根据dataIndex渲染不同的组件
+    const EditableCell = ({
+                              editing,
+                              dataIndex,
+                              title,
+                              inputType,
+                              record,
+                              index,
+                              children,
+                              ...restProps
+                          }) => {
+        let inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+
+        if (dataIndex==="privilege"){
+            inputNode=<Select
+                mode="multiple"
+                style={{ width: '100%' }}
+                placeholder="选择权限"
+                /*defaultValue={['china']}*/
+                onChange={handleChange}
+                optionLabelProp="label"
+            >
+                {props.privilegeList.map((item)=><Option
+                    value={item.privilegeId} label={item.privilegeName}>
+                    <div className="demo-option-label-item">
+                    <span role="img" aria-label="China">
+                    </span>
+                        {item.privilegeName}
+                    </div>
+                </Option>)}
+
+
+            </Select>
+        }else if (dataIndex==="status"){
+            inputNode=<Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+                <Option value="active">正常</Option>
+                <Option value="frozen">冻结</Option>
+            </Select>
+
+        }
+        return (
+            <td {...restProps}>
+                {editing ? (
+                    <Form.Item
+                        name={dataIndex}
+                        style={{
+                            margin: 0,
+                        }}
+                        rules={[
+                            {
+                                required: true,
+                                message: `请输入${title}!`,
+                            },
+                        ]}
+                    >
+                        {inputNode}
+                    </Form.Item>
+                ) : (
+                    children
+                )}
+            </td>
+        );
+    };
+
 
     const [form] = Form.useForm();
 
@@ -143,6 +141,18 @@ const UsersAdminTable = (props) => {
         }*/
     };
 
+    //将权限的id转换为对应的权限名字
+    const privilegeId2Name=(id)=>{
+        if(id){
+            for (var pi of props.privilegeList){
+                if (id==pi.privilegeId){
+                    return pi.privilegeName
+                }
+            }
+        }
+        return "未指定"
+    }
+
     const columns = [
         {
             title: '角色id',
@@ -164,7 +174,7 @@ const UsersAdminTable = (props) => {
             render:(item)=>{
                 return (item)? <div>
                     {item.map((itemi)=>{
-                        return(<Tag>{itemi}</Tag>)
+                        return(<Tag>{privilegeId2Name(itemi)}</Tag>)
                     })}
                 </div>:<div>未指定</div>
 
@@ -266,7 +276,8 @@ const UsersAdminTable = (props) => {
 function mapStateToProps(state)
 {
     return{
-        roleList:state.allRole.roleList
+        roleList:state.allRole.roleList,
+        privilegeList: state.allPrivilege.privilegeList
     }
 }
 export default connect(mapStateToProps,null) (UsersAdminTable)
