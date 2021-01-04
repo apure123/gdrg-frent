@@ -1,6 +1,8 @@
 import {Component} from "react";
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Breadcrumb } from 'antd';
 import  "../../style/newapply.css";
+import {newapply} from "../../server/apply/newapply";
+import {connect} from "react-redux";
 
 const layout = {
     labelCol: {
@@ -17,9 +19,11 @@ const tailLayout = {
     },
 };
 
-const NewApply = () => {
+const NewApplyhook = (props) => {
     const onFinish = (values) => {
         console.log('Success:', values);
+        newapply(values.deviceType,values.deviceName,props.userInfo.userId)
+
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -27,53 +31,60 @@ const NewApply = () => {
     };
 
     return(
-        <div className={"newapplyform"}>
-            <Form
-                {...layout}
-                name="basic"
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-            >
-                <Form.Item
-                    label="设备类型"
-                    name="deviceType"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your username!',
-                        },
-                    ]}
+        <div>
+            <Breadcrumb style={{ margin: '32px 0' }}>
+                <Breadcrumb.Item>资产申请</Breadcrumb.Item>
+                <Breadcrumb.Item>资产申请</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className={"newapplyform"}>
+                <Form
+                    {...layout}
+                    name="basic"
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                 >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    label="设备名称"
-                    name="deviceName"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your username!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+                    <Form.Item
+                        label="设备类型"
+                        name="deviceType"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="设备名称"
+                        name="deviceName"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
 
 
 
-                {/*<Form.Item {...tailLayout} name="remember" valuePropName="checked">
+                    {/*<Form.Item {...tailLayout} name="remember" valuePropName="checked">
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
                 */}
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        提交申请
-                    </Button>
-                </Form.Item>
-            </Form>
+                    <Form.Item {...tailLayout}>
+                        <Button type="primary" htmlType="submit">
+                            提交申请
+                        </Button>
+                    </Form.Item>
+                </Form>
+
+            </div>
 
         </div>
 
@@ -88,5 +99,13 @@ const NewApply = () => {
         </div>)
     }
 }*/
+function mapStateToProps(state)
+{
+    return{
+        userInfo:state.loginstate.userInfo
+    }
+}
+
+const NewApply=connect(mapStateToProps,null)(NewApplyhook)
 
 export default NewApply

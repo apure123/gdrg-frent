@@ -1,5 +1,5 @@
 import {Component} from "react";
-import { Form, Input, Button, Checkbox } from 'antd';
+import {Form, Input, Button, Checkbox, Breadcrumb} from 'antd';
 import  "../../style/newapply.css";
 import {addRole} from "../../server/superAdmin/newRole";
 
@@ -30,6 +30,10 @@ const NewRole = () => {
 
     return(
         <div className={"newapplyform"}>
+            <Breadcrumb style={{ margin: '32px 0' }}>
+                <Breadcrumb.Item>管理员</Breadcrumb.Item>
+                <Breadcrumb.Item>新建角色</Breadcrumb.Item>
+            </Breadcrumb>
             <Form
                 {...layout}
                 name="basic"
@@ -51,25 +55,6 @@ const NewRole = () => {
                 >
                     <Input />
                 </Form.Item>
-                {/*<Form.Item
-                    label="账号状态"
-                    name="accountState"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input accountState!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>*/}
-
-
-
-                {/*<Form.Item {...tailLayout} name="remember" valuePropName="checked">
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-                */}
                 <Form.Item {...tailLayout}>
                     <Button type="primary" htmlType="submit">
                         提交申请

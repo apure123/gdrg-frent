@@ -1,6 +1,7 @@
 import {Component} from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
 import  "../../style/newapply.css";
+import {connect} from "react-redux";
 
 const layout = {
     labelCol: {
@@ -17,7 +18,7 @@ const tailLayout = {
     },
 };
 
-const UserInfoDrawer = () => {
+const UserInfoDrawerhook = (props) => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -32,6 +33,11 @@ const UserInfoDrawer = () => {
             <p>用户信息</p>
             <hr/>
             <br/>
+
+            <p>{`用户id：${props.userInfo.userId}`}</p>
+            <p>{`用户名：${props.userInfo.userName}`}</p>
+            <p>{`邮箱：${props.userInfo.userEmail}`}</p>
+            <p>{`角色：${props.userInfo.userRoles}`}</p>
 
             <br/>
             <br/>
@@ -75,6 +81,13 @@ const UserInfoDrawer = () => {
     )
 
 }
+function mapStateToProps(state)
+{
+    return{
+        userInfo:state.loginstate.userInfo
+    }
+}
 
+const UserInfoDrawer= connect(mapStateToProps,null)(UserInfoDrawerhook)
 
 export default UserInfoDrawer

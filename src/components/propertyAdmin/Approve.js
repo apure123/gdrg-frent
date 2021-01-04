@@ -1,6 +1,9 @@
 import {Component} from "react";
-import { Table, Tag, Space } from 'antd';
+import {Table, Tag, Space, Breadcrumb} from 'antd';
 import {connect} from "react-redux"
+import {getTodoApply} from "../../server/property/getTodoApply";
+import {allowApply} from "../../server/property/allowApply";
+import {refuseApply} from "../../server/property/refueApply";
 
 const columns = [
     {
@@ -32,43 +35,31 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <a>通过</a>
-                <a>拒绝</a>
+                <a onClick={()=>{
+                    allowApply(record.applyId)
+                }}>通过</a>
+                <a onClick={()=>{
+                    refuseApply(record.applyId)
+                }}>拒绝</a>
             </Space>
         ),
     },
 
 ];
 
-const data = [
-    {
-        key: '1',
-        applyId:"111",
-        userId:"11",
-        userName: 'John Brown',
-        deviceType:"键盘",
-        deviceName:"罗技",
-    },{
-        key: '2',
-        applyId:"211",
-        userId:"12",
-        userName: 'John Brown',
-        deviceType:"键盘",
-        deviceName:"罗技2",
-    },{
-        key: '3',
-        applyId:"121",
-        userId:"11",
-        userName: 'John Brown',
-        deviceType:"鼠标",
-        deviceName:"罗技",
-    },
-];
 
 class  Approve extends Component{
 
+    componentDidMount() {
+        getTodoApply()
+    }
+
     render() {
         return(<div>
+            <Breadcrumb style={{ margin: '32px 0' }}>
+                <Breadcrumb.Item>财务管理</Breadcrumb.Item>
+                <Breadcrumb.Item>待审批</Breadcrumb.Item>
+            </Breadcrumb>
             <Table columns={columns} dataSource={this.props.approveList} />
         </div>)
     }

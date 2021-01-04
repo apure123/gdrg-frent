@@ -25,7 +25,7 @@ const myApplyLogReducer=(state ={
         case "refreshMyApplyLog":{
             return{
                 ...state,
-                applylog: action.aplylog
+                applylog: action.applylog
 
             }
         }

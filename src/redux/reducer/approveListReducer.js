@@ -6,21 +6,7 @@ const approveListReducer=(state ={
             deviceName:"logic380",
             userId:"1",
             userName:"zhaneasn",
-        },
-        {
-            applyId:"121",
-            deviceType:"电脑",
-            deviceName:"一台电脑",
-            userId:"2",
-            userName:"lisi",
-        },
-        {
-            applyId:"122",
-            deviceType:"游戏机",
-            deviceName:"ps5",
-            userId:"1",
-            userName:"zahsan",
-        },
+        }
 
     ]
 },action)=>{
@@ -28,7 +14,7 @@ const approveListReducer=(state ={
         case "refreshApproveList":{
             return{
                 ...state,
-                applylog: action.approveList
+                approveList: action.approveList
 
             }
         }

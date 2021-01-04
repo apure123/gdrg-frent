@@ -1,5 +1,5 @@
 import {Component} from "react";
-import { Table, Tag, Space,Input, Button } from 'antd';
+import {Table, Tag, Space, Input, Button, Breadcrumb} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {connect} from "react-redux"
@@ -14,7 +14,6 @@ class  ListAllProperty extends Component{
     };
 
     componentDidMount() {
-        console.log("开始请求----------------");
         getAllProperty();
     }
 
@@ -116,6 +115,10 @@ class  ListAllProperty extends Component{
         ];
 
         return(<div>
+            <Breadcrumb style={{ margin: '32px 0' }}>
+                <Breadcrumb.Item>财务管理</Breadcrumb.Item>
+                <Breadcrumb.Item>查看公司资产</Breadcrumb.Item>
+            </Breadcrumb>
             <Table columns={columns} dataSource={this.props.allProperty} />
         </div>)
     }

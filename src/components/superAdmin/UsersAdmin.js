@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import {Table, Input, InputNumber, Popconfirm, Form, Select, Tag,Button} from 'antd';
+import {Table, Input, InputNumber, Popconfirm, Form, Select, Tag, Button, Breadcrumb} from 'antd';
 import {connect} from "react-redux"
 import {getAllUser} from "../../server/superAdmin/getAllUser";
 import {deleteUserById} from "../../server/superAdmin/deleteUser";
@@ -90,7 +90,6 @@ var UsersAdminTable = (props) => {
     //模拟componentDidMount
     useEffect(()=>{
         getAllUser();
-        console.log("--------获取了用户列表-------")
     },[])
 
     const [form] = Form.useForm();
@@ -245,6 +244,10 @@ var UsersAdminTable = (props) => {
 
     return (
         <div>
+            <Breadcrumb style={{ margin: '32px 0' }}>
+                <Breadcrumb.Item>管理员</Breadcrumb.Item>
+                <Breadcrumb.Item>用户管理</Breadcrumb.Item>
+            </Breadcrumb>
             <Button  type="primary" style={{ marginBottom: 16 }} onClick={()=>{
                 getAllUser();
 
