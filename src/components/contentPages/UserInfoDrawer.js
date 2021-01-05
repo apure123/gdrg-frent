@@ -42,39 +42,7 @@ const UserInfoDrawerhook = (props) => {
             <br/>
             <br/>
             <br/>
-            <p>修改密码</p>
-            <hr/>
-            <br/>
-            <br/>
-            <Form
-                {...layout}
-                name="basic"
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
 
-            >
-                <Form.Item
-                    label="新密码"
-                    name="newpassword"
-                    rules={[
-                        {
-                            required: true,
-                            message: '新密码不能为空',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        修改密码
-                    </Button>
-                </Form.Item>
-            </Form>
 
         </div>
 

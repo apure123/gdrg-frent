@@ -3,6 +3,10 @@ import {Table, Input, InputNumber, Popconfirm, Form, Select, Tag, Button, Breadc
 import {connect} from "react-redux"
 import {getAllUser} from "../../server/superAdmin/getAllUser";
 import {deleteUserById} from "../../server/superAdmin/deleteUser";
+import {activeUserById, frozenUserById} from "../../server/superAdmin/frozenUser";
+import {getAllRole} from "../../server/superAdmin/getAllRole";
+import {setPrivilegesByRoleId} from "../../server/superAdmin/setPeivilegesByRoleId";
+import {setRoleForUser} from "../../server/superAdmin/setRoleForUser";
 
 
 
@@ -15,82 +19,79 @@ function handleChange(value) {
     console.log(`selected ${value}`);
 }
 
-//可编辑的表格单元格，需要在这里指定渲染类型
-//会根据dataIndex渲染不同的组件
-const EditableCell = ({
-                          editing,
-                          dataIndex,
-                          title,
-                          inputType,
-                          record,
-                          index,
-                          children,
-                          ...restProps
-                      }) => {
-    let inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
 
-    if (dataIndex==="roles"){
-        inputNode=<Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="选择用户类型"
-            /*defaultValue={['china']}*/
-            onChange={handleChange}
-            optionLabelProp="label"
-        >
-            <Option value="超级用户" label="超级">
-                <div className="demo-option-label-item">
-                    <span role="img" aria-label="China">
-                    </span>
-                    超级用户
-                </div>
-            </Option>
-            <Option value="老板" label="boss">
-                <div className="demo-option-label-item">
-                    <span role="img" aria-label="USA">
-                    </span>
-                    老板
-                </div>
-            </Option>
-
-        </Select>
-    }else if (dataIndex==="status"){
-        inputNode=<Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
-            <Option value="active">正常</Option>
-            <Option value="frozen">冻结</Option>
-        </Select>
-
-    }
-    return (
-        <td {...restProps}>
-            {editing ? (
-                <Form.Item
-                    name={dataIndex}
-                    style={{
-                        margin: 0,
-                    }}
-                    rules={[
-                        {
-                            required: true,
-                            message: `请输入${title}!`,
-                        },
-                    ]}
-                >
-                    {inputNode}
-                </Form.Item>
-            ) : (
-                children
-            )}
-        </td>
-    );
-};
 
 var UsersAdminTable = (props) => {
 
     //模拟componentDidMount
     useEffect(()=>{
+        getAllRole();//获取一下角色列表，显示用
         getAllUser();
     },[])
+
+    //可编辑的表格单元格，需要在这里指定渲染类型
+//会根据dataIndex渲染不同的组件
+    const EditableCell = ({
+                              editing,
+                              dataIndex,
+                              title,
+                              inputType,
+                              record,
+                              index,
+                              children,
+                              ...restProps
+                          }) => {
+        let inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+
+        if (dataIndex==="roles"){
+            inputNode=<Select
+                mode="multiple"
+                style={{ width: '100%' }}
+                placeholder="选择用户类型"
+                /*defaultValue={['china']}*/
+                onChange={handleChange}
+                optionLabelProp="label"
+            >
+                {props.roleList.map((item)=><Option
+                    value={item.roleId} label={item.roleName}>
+                    <div className="demo-option-label-item">
+                    <span role="img" aria-label="China">
+                    </span>
+                        {item.roleName}
+                    </div>
+                </Option>)}
+
+            </Select>
+        }else if (dataIndex==="status"){
+            inputNode=<Select defaultValue="lucy" style={{ width: 120 }} onChange={handleChange}>
+                <Option value="active">正常</Option>
+                <Option value="frozen">冻结</Option>
+            </Select>
+
+        }
+        return (
+            <td {...restProps}>
+                {editing ? (
+                    <Form.Item
+                        name={dataIndex}
+                        style={{
+                            margin: 0,
+                        }}
+                        rules={[
+                            /*{
+                                required: true,
+                                message: `请输入${title}!`,
+                            },*/
+                        ]}
+                    >
+                        {inputNode}
+                    </Form.Item>
+                ) : (
+                    children
+                )}
+            </td>
+        );
+    };
 
     const [form] = Form.useForm();
     //const [data, setData] = useState(originData);
@@ -118,25 +119,26 @@ var UsersAdminTable = (props) => {
     //这个函数等待修改
     //保存编辑更改
     const save = async (key) => {
-        try {
-            const row = await form.validateFields();
-            const newData = [...props.userList];
-            const index = newData.findIndex((item) => key === item.key);
-
-            if (index > -1) {
-                const item = newData[index];
-                newData.splice(index, 1, { ...item, ...row });
-                //setData(newData);
-                setEditingKey('');
-            } else {
-                newData.push(row);
-               // setData(newData);
-                setEditingKey('');
-            }
-        } catch (errInfo) {
-            console.log('Validate Failed:', errInfo);
-        }
+        const row = await form.validateFields();
+        const origindata=props.userList.find((item)=>key===item.key)
+        //进行操作
+        setRoleForUser(origindata.userId,row.roles)
+        setEditingKey("");
     };
+
+    //将权限的id转换为对应的权限名字
+    const roleId2Name=(id)=>{
+        if(id){
+            for (var ri of props.roleList){
+                if (id==ri.roleId){
+                    return ri.roleName
+                }
+            }
+        }
+        return "未指定"
+    }
+
+
 
     const columns = [
         {
@@ -169,7 +171,7 @@ var UsersAdminTable = (props) => {
 
                 return item? <div>
                     {item.map((itemi)=>{
-                        return(<Tag>{itemi}</Tag>)
+                        return(<Tag>{roleId2Name(itemi)}</Tag>)
                     })}
                 </div>:<div>未指定</div>
 
@@ -205,7 +207,13 @@ var UsersAdminTable = (props) => {
                             编辑角色
                         </a>
                         {
-                            record.status&&record.status==="active"?<a style={{marginRight: 8,}}>冻结</a>:<a style={{marginRight: 8,}}>激活</a>
+                            record.status&&record.status==="active"?<a onClick={()=>{
+                                frozenUserById(record.userId)}}
+                                style={{marginRight: 8,}}>冻结</a>:<a
+                                onClick={()=>{
+                                    activeUserById(record.userId)
+                            }}
+                                style={{marginRight: 8,}}>激活</a>
                         }
 
                         <Popconfirm title="确认删除用户?" onConfirm={()=>{
@@ -278,7 +286,8 @@ var UsersAdminTable = (props) => {
 function mapStateToProps(state)
 {
     return{
-        userList:state.allUser.userList
+        userList:state.allUser.userList,
+        roleList:state.allRole.roleList
     }
 }
 

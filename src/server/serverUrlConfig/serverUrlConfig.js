@@ -11,9 +11,15 @@ export const rigisterUrl=`${domainUrl}/user/register`
 
 export const getAllUserUrl=`${domainUrl}/user/getAllUsers`
 export const getAllRoleUrl=`${domainUrl}/role/getAllRoles`
-export const addUserUrl=""
+//冻结用户
+export const frozenUserUrl=`${domainUrl}/user/changeEnable`
 export const deleteUserUrl=`${domainUrl}/user/deleteUser`
 export const addRoleUrl=`${domainUrl}/role/addRole`
+//为角色设置权限的url
+export const setPrivilegeForRoleUrl=`${domainUrl}/role/setPrivileges`
+//为用户设置角色的url
+export const setRoleForUserUrl=`${domainUrl}/user/setRoles`
+//删除角色接口
 export const deleteRoleUrl=""
 //申请新资产的url
 export const applyPropertyUrl=`${propertyDomain}/apply/apply`
@@ -33,7 +39,7 @@ export const allowApplyUrl=`${propertyDomain}/apply/allow`
 export const refuseApplyUrl=`${propertyDomain}/apply/refuse`
 
 export const getUserInfoUrl=""
-export const changeUserPasswordUrl=""
+export const changeUserPasswordUrl=`${domainUrl}/user/changePassword`
 
 export const addPrivilegeUrl=""
 export const deletePrivilegeUrl=""

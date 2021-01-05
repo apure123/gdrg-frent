@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 import {deleteUserById} from "../../server/superAdmin/deleteUser";
 import {getAllUser} from "../../server/superAdmin/getAllUser";
 import {getAllRole} from "../../server/superAdmin/getAllRole";
+import {setPrivilegesByRoleId} from "../../server/superAdmin/setPeivilegesByRoleId";
 
 const originData = [];
 const { Option } = Select;
@@ -121,6 +122,14 @@ const UsersAdminTable = (props) => {
 
     //保存编辑更改
     const save = async (key) => {
+        const row = await form.validateFields();
+        const origindata=props.roleList.find((item)=>key===item.key)
+        console.log(origindata.roleId);
+        console.log(row.privilege);
+        setPrivilegesByRoleId(origindata.roleId,row.privilege);
+        setEditingKey("");
+
+
         /*try {
             const row = await form.validateFields();
             const newData = [...data];
