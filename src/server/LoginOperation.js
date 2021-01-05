@@ -8,7 +8,7 @@ export const loginOperation=(loginUserName,loginPassword)=>{
 
     axios.post(loginUrl,{username:loginUserName,password:loginPassword})
         .then( (response) =>{
-            if (response.status===200){
+            if (response.status===200&&response.data.code==200){
                 message.success("登录成功");
                 console.log(response.data);
                 //这里需要把用户信息存一下

@@ -34,7 +34,7 @@ class LoginPage extends Component{
     }
 
 //登录提交的方法
-    logintest=(e)=>{
+    /*logintest=(e)=>{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
@@ -70,7 +70,7 @@ class LoginPage extends Component{
                 console.log(error);
                 message.error("登录失败")
             })
-    }
+    }*/
 
     loginnewtest=(values)=>{
         loginOperation(values.loginUserName,values.loginPassword)
