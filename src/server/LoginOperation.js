@@ -12,7 +12,7 @@ export const loginOperation=(loginUserName,loginPassword)=>{
                 message.success("登录成功");
                 console.log(response.data);
                 //这里需要把用户信息存一下
-                store.dispatch({type:"login",roles:response.data.roles,userPrivilege:response.data.privileges,userInfo:response.data.data.user})
+                store.dispatch({type:"login",roles:response.data.data.roles,userPrivilege:response.data.data.privileges,userInfo:response.data.data.user})
 
 
             }else {

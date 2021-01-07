@@ -1,11 +1,11 @@
 const approveListReducer=(state ={
     approveList:[
         {
-            applyId:"123",
-            deviceType:"键盘",
-            deviceName:"logic380",
-            userId:"1",
-            userName:"zhaneasn",
+            applyId:"",
+            deviceType:"",
+            deviceName:"",
+            userId:"",
+            userName:"",
         }
 
     ]

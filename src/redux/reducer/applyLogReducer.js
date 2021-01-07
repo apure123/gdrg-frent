@@ -2,12 +2,12 @@ const applyLogReducer=(state ={
     applyLogList:[
         {
             key: '1',
-            applyId:"111",
-            userId:"12",
-            userName:"张三",
-            deviceType:"键盘",
-            deviceName:"键盘1",
-            applyState:"waiting"
+            applyId:"",
+            userId:"",
+            userName:"",
+            deviceType:"",
+            deviceName:"",
+            applyState:""
         },
 
 

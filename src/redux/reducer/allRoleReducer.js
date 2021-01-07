@@ -1,10 +1,10 @@
 const allRoleReducer=(state ={
     roleList:[
         {
-            key: '1',
-            roleId:"12",
-            roleName:"张三",
-            privilege:["1"]
+            key: '',
+            roleId:"",
+            roleName:"",
+            privilege:[""]
         },
 
     ]

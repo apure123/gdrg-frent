@@ -1,11 +1,11 @@
 const allUserInfoReducer=(state ={
     userList:[
         {
-            key: '1',
-            userId:"12",
-            userName:"张三",
-            roles:["1"],
-            status:"active"
+            key: '',
+            userId:"",
+            userName:"",
+            roles:[""],
+            status:""
 
         },
 

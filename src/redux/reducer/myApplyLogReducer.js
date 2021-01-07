@@ -1,22 +1,10 @@
 const myApplyLogReducer=(state ={
         applylog:[
             {
-                applyId:"123",
-                deviceType:"键盘",
-                deviceName:"logic380",
-                applyState:"waiting"
-            },
-            {
-                applyId:"121",
-                deviceType:"电脑",
-                deviceName:"一台电脑",
-                applyState:"refuse"
-            },
-            {
-                applyId:"122",
-                deviceType:"游戏机",
-                deviceName:"ps5",
-                applyState:"allow"
+                applyId:"",
+                deviceType:"",
+                deviceName:"",
+                applyState:""
             },
 
         ]

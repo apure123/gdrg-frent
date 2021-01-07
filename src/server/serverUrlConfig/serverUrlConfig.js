@@ -20,7 +20,7 @@ export const setPrivilegeForRoleUrl=`${domainUrl}/role/setPrivileges`
 //为用户设置角色的url
 export const setRoleForUserUrl=`${domainUrl}/user/setRoles`
 //删除角色接口
-export const deleteRoleUrl=""
+export const deleteRoleUrl=`${domainUrl}/role/addRole`
 //申请新资产的url
 export const applyPropertyUrl=`${propertyDomain}/apply/apply`
 //查看本人申请记录
