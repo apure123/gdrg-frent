@@ -8,7 +8,7 @@ import { UserOutlined } from '@ant-design/icons';
 import Register from "./loginPage/Register";
 import axios from "axios"
 import {loginUrl} from "../server/serverUrlConfig/serverUrlConfig";
-import {loginOperation} from "../server/LoginOperation";
+import {loginOperation, refreshPage} from "../server/LoginOperation";
 /*import ajax_url from "../../server_config/ajax_url";*/
 
 const ajax_url="12313";
@@ -31,6 +31,7 @@ class LoginPage extends Component{
 
     componentDidMount() {
         /*console.log(this.props.registerFlag)*/
+        refreshPage();
     }
 
 //登录提交的方法

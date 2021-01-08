@@ -11,6 +11,8 @@ import {routes, superAdminRoutes} from "../configs/routers";
 import {BrowserRouter as Router, Link, Redirect, Route} from "react-router-dom";
 import ContentPageFW from "./contentPages/ContentPageFW";
 import {connect} from "react-redux";
+import setHeadToken from "../server/setToken";
+import {refreshPage} from "../server/LoginOperation";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -27,6 +29,30 @@ class ContentPageFrameWoek extends Component{
     };
 
     componentDidMount() {
+
+
+        /*if(localStorage.jwToken){
+            console.log(11)
+            setHeadToken(localStorage.jwToken)
+            // 解析token
+           /!* const decoded =jwt_decode(localStorage.jwToken)
+            store.dispatch(setCurrentUser(decoded))*!/
+            // 检测token过期
+            // 获取当前时间
+           /!* const currentTime= Date.now() / 1000;//由毫秒转成秒
+            console.log(decoded)
+            console.log(currentTime)
+            // 判断当前时间是否大于token中的exp时间;如果大于是为过期
+            if(decoded.exp < currentTime){
+                // 过期
+                store.dispatch(logoutUser())
+
+                // 退出后再跳转页面
+                window.location.href = "/login";
+            }*!/
+        }*/
+
+
     }
 
     checkDisable=(key)=>{
@@ -42,6 +68,7 @@ class ContentPageFrameWoek extends Component{
 
 
     render() {
+
         return(<div>
             {this.props.isLogin?"":<Redirect to={"/"}/>}
             <Layout style={{ minHeight: '100vh' }}>

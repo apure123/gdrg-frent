@@ -8,6 +8,8 @@ export const allPropertyUrl=`${propertyDomain}/asset/all`
 
 export const loginUrl=`${domainUrl}/user/login`
 export const rigisterUrl=`${domainUrl}/user/register`
+//登录第二步，获取信息
+export  const getUserInfoUrl=`${domainUrl}/user/getInfowithJWT`
 
 export const getAllUserUrl=`${domainUrl}/user/getAllUsers`
 export const getAllRoleUrl=`${domainUrl}/role/getAllRoles`
@@ -38,7 +40,7 @@ export const allowApplyUrl=`${propertyDomain}/apply/allow`
 //拒绝一条申请
 export const refuseApplyUrl=`${propertyDomain}/apply/refuse`
 
-export const getUserInfoUrl=""
+
 export const changeUserPasswordUrl=`${domainUrl}/user/changePassword`
 
 export const addPrivilegeUrl=""

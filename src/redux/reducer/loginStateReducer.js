@@ -10,7 +10,7 @@ const loginStateReducer=(state ={
         userName:"username",
         userEmail:"1@1"
     },
-    token:"123123123",
+    token:"",
 
 },action)=>{
     switch (action.type){
@@ -23,10 +23,17 @@ const loginStateReducer=(state ={
                     userPrivilege:action.userPrivilege,
                     userId:action.userInfo.id,
                     userName:action.userInfo.username,
-                    userEmail:action.userInfo.email
-                }
+                    userEmail:action.userInfo.email,
+                },
 
 
+
+            }
+        }
+        case "settoken":{
+            return {
+                ...state,
+                token:action.token
             }
         }
         case "logout":{

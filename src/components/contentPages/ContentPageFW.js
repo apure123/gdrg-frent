@@ -12,6 +12,7 @@ import { DownOutlined,UserOutlined } from '@ant-design/icons';
 import  "../../style/headerscope.css"
 import UserInfoDrawer from "./UserInfoDrawer";
 import ChangePassWord from "./ChangePassWord";
+import {logoutOperation} from "../../server/LogoutOperation";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -67,7 +68,7 @@ class ContentPageFW extends Component{
                 </a>
             </Menu.Item>
             <Menu.Item>
-                <a onClick={this.props.logout}>
+                <a onClick={logoutOperation}>
                     退出登录
                 </a>
             </Menu.Item>
