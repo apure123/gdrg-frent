@@ -112,7 +112,6 @@ class Register extends Component{
         var data={
             username:values.account,
             password:values.password,
-            /*nickname:values.nickname,*/
             email:values.email
         }
 
@@ -195,16 +194,6 @@ class Register extends Component{
                         <Input type="password" onBlur={this.handleConfirmBlur} />
                     </Form.Item>
 
-                    <Form.Item label={"昵称"}
-                               name={"nickname"}
-                               rules={[{
-                                   message: '请输入用昵称!',
-                               }, {
-                                   required: true, message: '请输入用昵称!',
-                               }]}
-                    >
-                        <Input />
-                    </Form.Item>
 
                     <Form.Item
                         label={"邮箱"}
